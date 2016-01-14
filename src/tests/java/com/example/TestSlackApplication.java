@@ -16,6 +16,8 @@ import com.example.db.DatabaseService;
 import com.example.db.mongodb.MongoDatabaseService;
 import com.example.outgoing.SlackService;
 import com.example.outgoing.SlackServiceStub;
+import com.example.SlackApplicationTests;
+
 
 @SpringBootApplication
 @Configuration

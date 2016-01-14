@@ -34,7 +34,7 @@ public class SlackIncomingController {
   }
 
 
-  @RequestMapping(value="/", method=RequestMethod.POST, consumes = {"application/x-www-form-urlencoded"})
+  @RequestMapping(value="/slack", method=RequestMethod.POST, consumes = {"application/x-www-form-urlencoded"})
   public @ResponseBody String getSlackRequest(@ModelAttribute SlackRequest s) {
     System.out.println(s.toString());
 
