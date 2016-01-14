@@ -54,7 +54,6 @@ public class SlackIncomingController {
       return new SlackResponse(invalidText).toJSONString();
     }
 
-
     SlackResponse slackResponse = command.execute(s, args);
 
     return slackResponse.toJSONString();
