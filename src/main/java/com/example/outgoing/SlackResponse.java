@@ -1,5 +1,6 @@
 package com.example.outgoing;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.json.JSONObject;
@@ -21,7 +22,7 @@ public class SlackResponse {
   String icon_url;
   String icon_emoji;
 
-  Attachment attachment;
+  List<Attachment> attachments = new LinkedList<Attachment>();
   
   
   public SlackResponse(String text) {
@@ -93,11 +94,14 @@ public class SlackResponse {
     this.icon_emoji = icon_emoji;
   }
 
-  public Attachment getAttachment() {
-    return attachment;
+  public List<Attachment> getAttachments() {
+    return attachments;
   }
 
-  public void setAttachment(Attachment attachment) {
-    this.attachment = attachment;
+  public void setAttachments(List<Attachment> attachments) {
+    this.attachments = attachments;
+  }
+  public void addAttachment(Attachment attachment) {
+    this.attachments.add(attachment);
   }
 }
