@@ -15,29 +15,33 @@ import com.example.Commands.CommandService;
 import com.example.outgoing.SlackRequest;
 import com.example.outgoing.SlackResponse;
 
-import java.util.List;
 
 @RestController
 public class SlackIncomingController {
   //Tower
   //Board
-  
+
   @Autowired
   MessageByLocaleService messageByLocaleService;
 
   @Autowired
   CommandService commandService;
-  
-  
-  @RequestMapping(value="/", method=RequestMethod.POST, 
-        consumes = {"application/x-www-form-urlencoded"})
+
+
+  @RequestMapping("/hi")
+  public String index() {
+    return "Greetings from Spring Boot!";
+  }
+
+
+  @RequestMapping(value="/", method=RequestMethod.POST, consumes = {"application/x-www-form-urlencoded"})
   public @ResponseBody String getSlackRequest(@ModelAttribute SlackRequest s) {
     System.out.println(s.toString());
 
     String text = s.getText();
     Arguments args = new Arguments(text);
     Command command = commandService.findCommand(args.getCommand());
-    
+
     if (command == null) {
       String invalidText = 
           messageByLocaleService.getMessage("command.not.exist", args.getCommand());
@@ -49,8 +53,8 @@ public class SlackIncomingController {
           messageByLocaleService.getMessage("command.invalid", command.usage());
       return new SlackResponse(invalidText).toJSONString();
     }
-    
-    
+
+
     SlackResponse slackResponse = command.execute(s, args);
 
     return slackResponse.toJSONString();

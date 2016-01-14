@@ -8,18 +8,18 @@ public class SlackResponse {
   String channel;
   String icon_url;
   String icon_emoji;
-  
-  
+
+
   public SlackResponse(String text) {
     this.text = text;
   }
-  
-  
+
+
   public String toJSONString() {
-    
+
     JSONObject result = new JSONObject();
     result.put("text", text);
-    
+
     if (channel != null && !channel.equals("")) {
       result.put("channel", channel);
     }

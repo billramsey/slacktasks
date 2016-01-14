@@ -1,13 +1,14 @@
 package com.example.db;
 
-import com.mongodb.Mongo;
-import com.mongodb.MongoClient;
-import com.mongodb.WriteConcern;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.WriteResultChecking;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+
+import com.mongodb.Mongo;
+import com.mongodb.MongoClient;
+import com.mongodb.WriteConcern;
 
 
 
@@ -22,12 +23,13 @@ public class ApplicationConfig extends AbstractMongoConfiguration {
     return mongo;
   }
 
+  @Override
   public MongoTemplate mongoTemplate() throws Exception {
     MongoTemplate mongoTemplate = new MongoTemplate(mongo(), getDatabaseName());
     mongoTemplate.setWriteResultChecking(WriteResultChecking.EXCEPTION);
     return mongoTemplate;
   }
-  
+
   @Override
   protected String getDatabaseName() {
     return "springdata";

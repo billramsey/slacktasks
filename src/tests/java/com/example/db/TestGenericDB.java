@@ -6,11 +6,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import com.example.MessageByLocaleService;
-import com.example.TestSlackApplication;
-import com.example.db.mongodb.AssigneeRepository;
-import com.example.db.mongodb.ProjectRepository;
-import com.example.db.mongodb.TaskRepository;
+import java.util.List;
+import java.util.Set;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,8 +18,11 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.List;
-import java.util.Set;
+import com.example.MessageByLocaleService;
+import com.example.TestSlackApplication;
+import com.example.db.mongodb.AssigneeRepository;
+import com.example.db.mongodb.ProjectRepository;
+import com.example.db.mongodb.TaskRepository;
 
 
 
@@ -60,7 +61,7 @@ public class TestGenericDB {
     Assignee user = databaseService.getAssignee("billramsey");
     assertNotNull(user);
   }
-  
+
   @Test
   public void testCreateProject() {
     databaseService.createProject("channelId", "channelName");
@@ -91,7 +92,7 @@ public class TestGenericDB {
     }
     return foundProject;
   }
-  
+
   public boolean findAssigneeInAssigneeSet(Set<Assignee> assignees, String userId) {
     boolean foundAssignee = false;
     for (Assignee a : assignees) {
@@ -204,12 +205,12 @@ public class TestGenericDB {
   public void testNullCreationFields() {
     //TODO
   }
-  
+
   @Test
   public void testBadTasksProject() {
     //TODO
   }
-  
+
   @Test
   public void testAssignUserToBadProject() {
     //TODO

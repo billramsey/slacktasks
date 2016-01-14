@@ -7,10 +7,10 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 public class Task {
   @Id
   private String taskId;
-  
+
   @DBRef(lazy = true)
   private Project project;
-  
+
   @DBRef(lazy = true)
   private Assignee assignee;
   private String title;
@@ -19,13 +19,13 @@ public class Task {
 
   public Task() {
   }
-  
+
   public Task(String taskId, String title, String description) {
     this.taskId = taskId;
     this.description = description;
     this.title = title;
   }
-  
+
   public Task(String taskId, String title, String description, Project project, Assignee assignee) {
     this.taskId = taskId;
     this.project = project;

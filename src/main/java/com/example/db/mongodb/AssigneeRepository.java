@@ -7,7 +7,7 @@ import com.example.db.Assignee;
 
 
 public interface AssigneeRepository extends 
-    MongoRepository<Assignee, String>, AssigneeRepositoryCustom {
+MongoRepository<Assignee, String>, AssigneeRepositoryCustom {
 
   public Assignee findByUserName(String userName);
   public Assignee findById(String userId);

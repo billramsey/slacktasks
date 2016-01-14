@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 public class CommandService {
   @Autowired
   List<Command> commands;
-  
+
   public List<Command> getCommands() {
     return commands;
   }
-  
+
   public Command findCommand(String name) {
     for (Command c : commands) {
       if (c.name().equals(name)) {
@@ -22,6 +22,6 @@ public class CommandService {
     }
     return null;
   }
-  
+
 
 }

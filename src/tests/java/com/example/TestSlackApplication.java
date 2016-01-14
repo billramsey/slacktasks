@@ -1,9 +1,6 @@
 package com.example;
 
-import com.example.db.DatabaseService;
-import com.example.db.mongodb.MongoDatabaseService;
-import com.example.outgoing.SlackService;
-import com.example.outgoing.SlackServiceStub;
+import java.util.Locale;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -15,7 +12,10 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
-import java.util.Locale;
+import com.example.db.DatabaseService;
+import com.example.db.mongodb.MongoDatabaseService;
+import com.example.outgoing.SlackService;
+import com.example.outgoing.SlackServiceStub;
 
 @SpringBootApplication
 @Configuration
@@ -33,7 +33,7 @@ public class TestSlackApplication {
     slr.setDefaultLocale(Locale.US);
     return slr;
   }
-  
+
   @Bean
   public ReloadableResourceBundleMessageSource messageSource() {
     ReloadableResourceBundleMessageSource messageSource = 
@@ -42,12 +42,12 @@ public class TestSlackApplication {
     messageSource.setCacheSeconds(3600); //refresh cache once per hour
     return messageSource;
   }
-  
+
   @Bean
   public DatabaseService databaseService() {
     return new MongoDatabaseService();
   }
-  
+
   @Bean
   public SlackService slackService() {
     return new SlackServiceStub();

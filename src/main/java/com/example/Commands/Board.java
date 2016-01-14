@@ -9,20 +9,22 @@ import com.example.outgoing.SlackResponse;
 @Component
 public class Board extends Command {
 
+  @Override
   public String name() {
     return "board";
   }
-  
+
+  @Override
   public String usage() {
     return "/" + GlobalVariables.commandName() + " " 
         +  messageByLocaleService.getMessage("board.usage");
   }
-  
+
   @Override
   public boolean areArgsGood(Arguments args) {
     return true;
   }
-  
+
   @Override
   public SlackResponse execute(SlackRequest slackRequest, Arguments args)  {
     // TODO Auto-generated method stub

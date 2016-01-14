@@ -13,24 +13,26 @@ import com.example.db.Task;
 import com.example.outgoing.SlackRequest;
 import com.example.outgoing.SlackResponse;
 import com.example.outgoing.SlackService;
- 
+
 
 @Component
 public class Assign extends Command  {
-  
+
   @Autowired
   DatabaseService databaseService;
-   
+
   @Autowired
   MessageByLocaleService messageByLocaleService;
 
   @Autowired
   SlackService slackService;
-  
+
+  @Override
   public String name() {
     return "assign";
   }
 
+  @Override
   public String usage() {
     return "/" + GlobalVariables.commandName() + " " 
         +  messageByLocaleService.getMessage("assign.usage");
@@ -43,23 +45,23 @@ public class Assign extends Command  {
     }
     return true;
   }
-  
+
   @Override
   public SlackResponse execute(SlackRequest slackRequest, Arguments args) {
     System.out.println("assign [taskId] [userId]");
     String channelId = slackRequest.getChannel_id();
-    
+
     String taskId = args.getArgs()[0];
     String userName = args.getArgs()[1];
 
     Project project = databaseService.getProject(channelId);
-    
+
     if (project == null) {
       return new SlackResponse(
           messageByLocaleService.getMessage("project.not.defined"));
     }
-    
-    
+
+
     Assignee assignee = databaseService.getAssignee(userName);
     if (assignee == null) {
       return new SlackResponse(
@@ -70,17 +72,17 @@ public class Assign extends Command  {
           messageByLocaleService.getMessage("user.not.assigned.to.channel", 
               assignee.getUserName(), project.getChannelId()));
     }
-    
+
     Task task = databaseService.findByTaskId(taskId);
-    
+
     if (task.getAssignee() != null) {
       return new SlackResponse(messageByLocaleService.getMessage("task.already.assigned", 
           task.getAssignee().getUserName()));
     }
-     
+
     databaseService.addAssigneeToTask(task, assignee);
     //databaseService.assignUserToProject(assignee, project);
-    
+
     return new SlackResponse(messageByLocaleService.getMessage("task.assigned.user.success"));  
   }
 

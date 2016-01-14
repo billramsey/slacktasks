@@ -1,14 +1,13 @@
 package com.example.outgoing;
 
-import flowctrl.integration.slack.SlackClientFactory;
-import flowctrl.integration.slack.type.Presence;
-import flowctrl.integration.slack.type.User;
-import flowctrl.integration.slack.webapi.SlackWebApiClient;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.List;
+import flowctrl.integration.slack.SlackClientFactory;
+import flowctrl.integration.slack.type.User;
+import flowctrl.integration.slack.webapi.SlackWebApiClient;
 
 public class TestSlackCalls {
 

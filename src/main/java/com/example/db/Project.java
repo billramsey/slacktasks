@@ -1,12 +1,12 @@
 package com.example.db;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
 
 public class Project {
@@ -18,10 +18,10 @@ public class Project {
 
   @DBRef(lazy = true)
   private Set<Assignee> assignees = new HashSet<Assignee>();
-  
+
   @DBRef(lazy = true)
   private List<Task> tasks = new LinkedList<Task>();
-  
+
   public Project(String channelId, String channelName) {
     this.channelId = channelId;
     this.channelName = channelName;
@@ -66,7 +66,7 @@ public class Project {
   public void setAssignees(Set<Assignee> assignees) {
     this.assignees = assignees;
   }
-  
+
   public void addAssignee(Assignee assignee) {
     assignees.add(assignee);
   }
@@ -78,9 +78,9 @@ public class Project {
   public void setTasks(List<Task> tasks) {
     this.tasks = tasks;
   }
-  
+
   public void addTask(Task task) {
     this.tasks.add(task);
   }
-  
+
 }

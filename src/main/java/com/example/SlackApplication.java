@@ -2,6 +2,8 @@ package com.example;
 
 
 
+import java.util.Locale;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,8 +21,6 @@ import com.example.db.mongodb.MongoDatabaseService;
 import com.example.outgoing.SlackService;
 import com.example.outgoing.SlackServiceImpl;
 
-import java.util.Locale;
-
 @SpringBootApplication
 @Configuration
 @EnableAutoConfiguration
@@ -30,7 +30,8 @@ public class SlackApplication extends SpringBootServletInitializer {
   public static void main(String[] args) {
     SpringApplication.run(SlackApplication.class, args);
   }
-  
+
+  @Override
   protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
     return application.sources(SlackApplication.class);
   }
@@ -41,7 +42,7 @@ public class SlackApplication extends SpringBootServletInitializer {
     slr.setDefaultLocale(Locale.US);
     return slr;
   }
-  
+
   @Bean
   public ReloadableResourceBundleMessageSource messageSource() {
     ReloadableResourceBundleMessageSource messageSource = 

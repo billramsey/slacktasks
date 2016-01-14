@@ -1,10 +1,10 @@
 package com.example.db.mongodb;
 
+import java.util.List;
+
 import com.example.db.Assignee;
 import com.example.db.Project;
 import com.example.db.Task;
-
-import java.util.List;
 
 public interface AssigneeRepositoryCustom {
   public List<Project> getProjectList(String userName);

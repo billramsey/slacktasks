@@ -1,7 +1,8 @@
 package com.example.outgoing;
 
-import com.example.db.Assignee;
 import org.springframework.stereotype.Service;
+
+import com.example.db.Assignee;
 
 
 @Service

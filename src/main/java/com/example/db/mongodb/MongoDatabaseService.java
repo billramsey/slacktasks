@@ -1,12 +1,9 @@
 package com.example.db.mongodb;
 
 
-import com.example.MessageByLocaleService;
-import com.example.db.Assignee;
-import com.example.db.DatabaseService;
-import com.example.db.Project;
-import com.example.db.Task;
-import com.example.outgoing.SlackService;
+import java.util.List;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.FindAndModifyOptions;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -15,8 +12,12 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Set;
+import com.example.MessageByLocaleService;
+import com.example.db.Assignee;
+import com.example.db.DatabaseService;
+import com.example.db.Project;
+import com.example.db.Task;
+import com.example.outgoing.SlackService;
 
 
 @Service
@@ -204,6 +205,7 @@ public class MongoDatabaseService implements DatabaseService {
 
     return false;
   }
+  @Override
   public List<Task> getUnassignedTasks(Project project) {
     return taskRepository.findByProjectAndAssignee(project, null);
   }

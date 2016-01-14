@@ -2,8 +2,15 @@ package com.example.Commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.example.MessageByLocaleService;
 import com.example.TestSlackApplication;
@@ -16,19 +23,6 @@ import com.example.db.mongodb.ProjectRepository;
 import com.example.db.mongodb.TaskRepository;
 import com.example.outgoing.SlackRequest;
 import com.example.outgoing.SlackResponse;
-import org.hamcrest.CoreMatchers;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-
-import java.util.List;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -41,7 +35,7 @@ public class TestAssign {
 
   @Autowired
   MessageByLocaleService messageByLocaleService;
-  
+
   @Autowired
   private AssigneeRepository assigneeRepository;
   @Autowired
@@ -51,19 +45,19 @@ public class TestAssign {
   @Autowired
   DatabaseService databaseService;
 
-  
+
   //Test projects, assignee, and task
   Project testProject;
   Assignee testAssignee;
   Task testTask;
-  
+
   @Before
   public void setup() {
     assigneeRepository.deleteAll();
     projectRepository.deleteAll();
     taskRepository.deleteAll();
-    
-    
+
+
     testProject = new Project("test-project-id", "test-project-name");
     projectRepository.save(testProject);
     testAssignee = new Assignee("test-assignee-id", "test-assignee-name");
@@ -71,7 +65,7 @@ public class TestAssign {
     testTask = new Task("test-task-id", "test-task-title", "test-task-description");
     taskRepository.save(testTask);
   }
-  
+
 
 
   @Test
@@ -79,63 +73,63 @@ public class TestAssign {
     Arguments arg = new Arguments("assign test-task-id test-assignee-name");
     Command command = commandService.findCommand(arg.getCommand());
     assertNotNull(command);
-    
+
     SlackRequest slackRequest = new SlackRequest();
     slackRequest.setChannel_id("test-project-id");
-    
+
     //Test without user assigned to channel
     SlackResponse response = command.execute(slackRequest, arg);
     assertEquals(messageByLocaleService.getMessage("user.not.assigned.to.channel", 
-            testAssignee.getUserName(), testProject.getChannelId()),
-            response.getText());
+        testAssignee.getUserName(), testProject.getChannelId()),
+        response.getText());
 
   }
-  
-  
+
+
   @Test
   public void testAssignUserCommandSuccess() {
     Arguments arg = new Arguments("assign test-task-id test-assignee-name");
     Command command = commandService.findCommand(arg.getCommand());
     assertNotNull(command);
-    
+
     SlackRequest slackRequest = new SlackRequest();
     slackRequest.setChannel_id("test-project-id");
-    
+
     //Assign to channel assert success
     databaseService.assignUserToProject(testAssignee, testProject);
-    
+
     SlackResponse response = command.execute(slackRequest, arg);
     assertEquals(messageByLocaleService.getMessage("task.assigned.user.success"),
         response.getText());
-    
+
     //run it again, assure that already assigned
     response = command.execute(slackRequest, arg);
-    
+
     assertEquals(messageByLocaleService.getMessage("task.already.assigned", 
         testAssignee.getUserName()), response.getText());
   }
-  
+
   @Test
   public void testAssignUserCommandAlreadyAssigned() {
     Arguments arg = new Arguments("assign test-task-id test-assignee-name");
     Command command = commandService.findCommand(arg.getCommand());
     assertNotNull(command);
-    
+
     SlackRequest slackRequest = new SlackRequest();
     slackRequest.setChannel_id("test-project-id");
-    
+
     //Assign to channel assert success
     databaseService.assignUserToProject(testAssignee, testProject);
-    
+
     SlackResponse response = command.execute(slackRequest, arg);
     assertEquals(messageByLocaleService.getMessage("task.assigned.user.success"),
         response.getText());
-    
+
     //run it again, assure that already assigned
     response = command.execute(slackRequest, arg);
-    
+
     assertEquals(messageByLocaleService.getMessage("task.already.assigned", 
         testAssignee.getUserName()), response.getText());
   }
-  
+
 }

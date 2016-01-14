@@ -16,20 +16,22 @@ import com.example.outgoing.SlackService;
 
 @Component
 public class Register extends Command  {
-  
+
   @Autowired
   DatabaseService databaseService;
-  
+
   @Autowired
   MessageByLocaleService messageByLocaleService;
 
   @Autowired
   SlackService slackService;
-  
+
+  @Override
   public String name() {
     return "register";
   }
 
+  @Override
   public String usage() {
     return "/" + GlobalVariables.commandName() + " " 
         +  messageByLocaleService.getMessage("register.usage");
@@ -42,12 +44,12 @@ public class Register extends Command  {
     }
     return true;
   }
-  
+
   @Override
   public SlackResponse execute(SlackRequest slackRequest, Arguments args) {
     System.out.println("register new user");
     String channelId = slackRequest.getChannel_id();
-    
+
     String userName = args.getArgs()[0];
 
     Assignee assignee = databaseService.getAssignee(userName);
@@ -58,15 +60,15 @@ public class Register extends Command  {
       }
       assignee = databaseService.createAssignee(slackService.slackUserToAssignee(userId));
     }
-    
+
     Project project = databaseService.getProject(channelId);
-    
+
     if (project == null) {
       return new SlackResponse(messageByLocaleService.getMessage("project.not.defined"));
     }
 
     databaseService.assignUserToProject(assignee, project);
-    
+
     return new SlackResponse(messageByLocaleService.getMessage("project.assigned.user.success"));  
   }
 

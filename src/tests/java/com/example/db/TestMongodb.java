@@ -3,9 +3,7 @@ package com.example.db;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import com.example.db.mongodb.AssigneeRepository;
-import com.example.db.mongodb.ProjectRepository;
-import com.example.db.mongodb.TaskRepository;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.Set;
+import com.example.db.mongodb.AssigneeRepository;
+import com.example.db.mongodb.ProjectRepository;
+import com.example.db.mongodb.TaskRepository;
 
 
 
@@ -49,7 +49,7 @@ public class TestMongodb {
     Assignee assignee = new Assignee(userId, userName);
     return assigneeRepository.save(assignee);
   }
-  
+
   public Project createProjectWithAssignee(String projectId, String projectName, Assignee e) {
     Project project = new Project(projectId, projectName);
     Set<Assignee> assignees = project.getAssignees();
@@ -57,7 +57,7 @@ public class TestMongodb {
     project.setAssignees(assignees);
     return projectRepository.save(project);
   }
-  
+
   public Task createTask(String taskId, String title, String description, Project p, Assignee e) {
     Task task = new Task(taskId, title, description, p, e);
     return taskRepository.save(task);
