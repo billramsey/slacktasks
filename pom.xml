@@ -69,7 +69,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>tests</scope>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
     		<groupId>com.github.flowctrl</groupId>
