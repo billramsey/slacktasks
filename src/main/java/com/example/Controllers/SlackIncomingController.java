@@ -8,7 +8,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.example.MessageByLocaleService;
+import com.example.Commands.Arguments;
+import com.example.Commands.Command;
+import com.example.Commands.CommandService;
+import com.example.outgoing.SlackRequest;
+import com.example.outgoing.SlackResponse;
 
 import java.util.List;
 
@@ -17,11 +22,13 @@ public class SlackIncomingController {
   //Tower
   //Board
   
-  @RequestMapping("/hi")
-  public String index() {
-      return "Greetings from Spring Boot!";
-  }
-/*
+  @Autowired
+  MessageByLocaleService messageByLocaleService;
+
+  @Autowired
+  CommandService commandService;
+  
+  
   @RequestMapping(value="/", method=RequestMethod.POST, 
         consumes = {"application/x-www-form-urlencoded"})
   public @ResponseBody String getSlackRequest(@ModelAttribute SlackRequest s) {
@@ -48,6 +55,6 @@ public class SlackIncomingController {
 
     return slackResponse.toJSONString();
   }
-  */
+
 
 }
