@@ -17,7 +17,7 @@ public class SlackIncomingController {
   //Tower
   //Board
   
-  @RequestMapping("/")
+  @RequestMapping("/hi")
   public String index() {
       return "Greetings from Spring Boot!";
   }
