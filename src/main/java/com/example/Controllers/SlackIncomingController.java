@@ -55,7 +55,7 @@ public class SlackIncomingController {
     }
 
     SlackResponse slackResponse = command.execute(s, args);
-
+    System.out.println("SlackResponse: " + slackResponse.toJSONString());
     return slackResponse.toJSONString();
   }
 

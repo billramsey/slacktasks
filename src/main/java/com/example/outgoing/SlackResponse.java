@@ -1,7 +1,19 @@
 package com.example.outgoing;
 
+import java.util.List;
+
 import org.json.JSONObject;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import flowctrl.integration.slack.exception.SlackException;
+import flowctrl.integration.slack.type.Attachment;
+
+
+@JsonInclude(Include.NON_EMPTY)
 public class SlackResponse {
   String username;
   String text;
@@ -9,14 +21,15 @@ public class SlackResponse {
   String icon_url;
   String icon_emoji;
 
-
+  Attachment attachment;
+  
+  
   public SlackResponse(String text) {
     this.text = text;
   }
 
-
   public String toJSONString() {
-
+    /*
     JSONObject result = new JSONObject();
     result.put("text", text);
 
@@ -27,55 +40,64 @@ public class SlackResponse {
       result.put("username", username);
     }
     return result.toString();
+    */
+    ObjectMapper mapper = new ObjectMapper();
+    
+    String message = null;
+    try {
+        message = mapper.writeValueAsString(this);
+    } catch (JsonProcessingException e) {
+        throw new SlackException(e);
+    }
+    
+    return message;
   }
-
 
   public String getUsername() {
     return username;
   }
 
-
   public void setUsername(String username) {
     this.username = username;
   }
-
 
   public String getText() {
     return text;
   }
 
-
   public void setText(String text) {
     this.text = text;
   }
-
 
   public String getChannel() {
     return channel;
   }
 
-
   public void setChannel(String channel) {
     this.channel = channel;
   }
-
 
   public String getIcon_url() {
     return icon_url;
   }
 
-
   public void setIcon_url(String icon_url) {
     this.icon_url = icon_url;
   }
-
 
   public String getIcon_emoji() {
     return icon_emoji;
   }
 
-
   public void setIcon_emoji(String icon_emoji) {
     this.icon_emoji = icon_emoji;
+  }
+
+  public Attachment getAttachment() {
+    return attachment;
+  }
+
+  public void setAttachment(Attachment attachment) {
+    this.attachment = attachment;
   }
 }

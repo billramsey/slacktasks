@@ -14,6 +14,9 @@ import com.example.db.Task;
 import com.example.outgoing.SlackRequest;
 import com.example.outgoing.SlackResponse;
 
+import flowctrl.integration.slack.type.Attachment;
+import flowctrl.integration.slack.type.Field;
+
 
 @Component
 public class Unassigned extends Command  {
@@ -55,12 +58,21 @@ public class Unassigned extends Command  {
 
     List<Task> taskList = databaseService.getUnassignedTasks(project);
 
-    StringBuilder sb = new StringBuilder();
-    for(Task t : taskList) {
-      sb.append(t.getTitle());
+    if (taskList == null || taskList.size() == 0) {
+      return new SlackResponse(messageByLocaleService.getMessage("unassigned.none")); 
     }
+    
+    Attachment attachment = new Attachment();
+    Field f = new Field("id", "123456");
+    
 
-    return new SlackResponse(sb.toString());  
+    for(Task t : taskList) {
+      attachment.addField(new Field("id", t.getTaskId()));
+    }
+    SlackResponse sr = new SlackResponse("Unassigned:");
+    sr.setAttachment(attachment);
+    
+    return sr;  
   }
 
 

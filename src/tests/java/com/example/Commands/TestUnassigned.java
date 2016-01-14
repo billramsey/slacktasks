@@ -78,5 +78,19 @@ public class TestUnassigned {
     String responseText = response.getText();
     Assert.assertThat(responseText, CoreMatchers.containsString("test-task-title"));
   }
+  
+  @Test
+  public void testAttachmentText() {
+    SlackRequest slackRequest = new SlackRequest();
+    slackRequest.setChannel_id("test-project-id");
+
+    Arguments arg = new Arguments("unassigned");
+    Command command = commandService.findCommand(arg.getCommand());
+
+    SlackResponse response = command.execute(slackRequest, arg);
+
+    System.out.println(response.toJSONString());
+  }
+  
 
 }
