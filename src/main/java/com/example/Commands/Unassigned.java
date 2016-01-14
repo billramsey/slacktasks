@@ -66,9 +66,20 @@ public class Unassigned extends Command  {
 
 
     for(Task t : taskList) {
-      attachment.addField(new Field("id", t.getTaskId()));
-      attachment.addField(new Field("title", t.getTitle()));
-      attachment.addField(new Field("desc", t.getDescription()));
+      Field id = new Field("id", t.getTaskId());
+      id.set_short(true);
+      attachment.addField(id);
+      
+      Field title = new Field("title", t.getTitle());
+      title.set_short(true);
+      attachment.addField(title);
+      
+      Field desc = new Field("desc", t.getDescription());
+      desc.set_short(true);
+      
+      attachment.addField(id);
+      attachment.addField(title);
+      attachment.addField(desc);
     }
     SlackResponse sr = new SlackResponse("Unassigned:");
     sr.addAttachment(attachment);
