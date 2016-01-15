@@ -1,2 +1,7 @@
 /target/
 /slacktasks/
+target
+.settings/*
+!.settings/.jsdtscope
+.project
+.classpath
