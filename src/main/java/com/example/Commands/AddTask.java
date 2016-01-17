@@ -54,6 +54,10 @@ public class AddTask extends Command  {
 
     Project project = databaseService.getProject(channelId);
 
+    if (project == null) {
+      return new SlackResponse(messageByLocaleService.getMessage("project.not.defined"));
+    }
+    
     String[] argsArray = args.getArgs();
     Task task = new Task();
     task.setProject(project);

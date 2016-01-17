@@ -78,7 +78,7 @@ public class MongoDatabaseService implements DatabaseService {
   public Task createTask(String taskId, String title, String description,
       Project project, Assignee assignee) {
     Task task = new Task(taskId, title, description, project, assignee);
-    task = taskRepository.save(task);
+    task = taskRepository.insert(task);
 
     if (project != null) {
       project.addTask(task);

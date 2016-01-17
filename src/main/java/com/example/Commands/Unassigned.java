@@ -62,25 +62,20 @@ public class Unassigned extends Command  {
       return new SlackResponse(messageByLocaleService.getMessage("unassigned.none")); 
     }
     
-    Attachment attachment = new Attachment();
-
+    
+    SlackResponse sr = new SlackResponse("Unassigned:");
 
     for(Task t : taskList) {
-      Field id = new Field("id", t.getTaskId());
-      id.set_short(true);
-      attachment.addField(id);
-      
-      Field title = new Field("title", t.getTitle());
-      title.set_short(true);
-      attachment.addField(title);
-      
+      Attachment attachment = new Attachment();
+      attachment.setText(t.getTitle() + "[" + t.getTaskId() + "]");
+
       Field desc = new Field("desc", t.getDescription());
-      desc.set_short(true);
+      desc.set_short(false);
       attachment.addField(desc);
-      
+      sr.addAttachment(attachment);
     }
-    SlackResponse sr = new SlackResponse("Unassigned:");
-    sr.addAttachment(attachment);
+    
+    
     
     return sr;  
   }

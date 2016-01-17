@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.example.MessageByLocaleService;
@@ -85,6 +86,47 @@ public class TestAddTask {
     t = databaseService.findByTaskId("fooid");
     assertNotNull(t);
   }
-  
+  @Test
+  public void testAddTaskTwice() {
+    SlackRequest slackRequest = new SlackRequest();
+    slackRequest.setChannel_id("test-project-id");
 
+    Task t = databaseService.findByTaskId("fooid");
+    assertNull(t);
+    
+    Arguments arg = new Arguments("addtask fooid footitle foodescription");
+    Command command = commandService.findCommand(arg.getCommand());
+
+    SlackResponse response = command.execute(slackRequest, arg);
+    String responseText = response.getText();
+    assertEquals(messageByLocaleService.getMessage("addtask.success"),
+        responseText);
+    
+    t = databaseService.findByTaskId("fooid");
+    assertNotNull(t);
+    
+    boolean duplicateKeyExceptionCaught = false;
+    try {
+      response = command.execute(slackRequest, arg);
+    } catch (DuplicateKeyException d) {
+      duplicateKeyExceptionCaught = true;
+    }
+    assertTrue(duplicateKeyExceptionCaught);
+    
+    
+  }
+  @Test
+  public void testAddTaskNonExistentProject() {
+    SlackRequest slackRequest = new SlackRequest();
+    slackRequest.setChannel_id("no-project-here");
+    
+    Arguments arg = new Arguments("addtask fooid footitle foodescription");
+    Command command = commandService.findCommand(arg.getCommand());
+
+    SlackResponse response = command.execute(slackRequest, arg);
+
+    String responseText = response.getText();
+    assertEquals(messageByLocaleService.getMessage("project.not.defined"),
+        responseText);
+  }
 }
