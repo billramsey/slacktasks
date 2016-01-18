@@ -42,9 +42,7 @@ public class ApplicationConfig extends AbstractMongoConfiguration {
   protected String getDatabaseName() {
     return "springdata";
   }
-  
-  
-  
+
   @Override
   public MongoTemplate mongoTemplate() throws Exception {
   if (System.getenv("OPENSHIFT_MONGODB_DB_HOST") != null) {
@@ -54,11 +52,11 @@ public class ApplicationConfig extends AbstractMongoConfiguration {
       String password = System.getenv("OPENSHIFT_MONGODB_DB_PASSWORD");
       String dbname = System.getenv("OPENSHIFT_APP_NAME");
       
-      Mongo mongo = new MongoClient(Collections.singletonList(new ServerAddress(dbhost,dbport)),
+      MongoClient mongoclient = new MongoClient(Collections.singletonList(new ServerAddress(dbhost,dbport)),
           Collections.singletonList(MongoCredential.createCredential(username,dbname, password.toCharArray())));
       
 
-      MongoDbFactory mongoDbFactory = new SimpleMongoDbFactory(mongo, dbname);
+      MongoDbFactory mongoDbFactory = new SimpleMongoDbFactory(mongoclient, dbname);
       MongoTemplate mongoTemplate = new MongoTemplate(mongoDbFactory);
       return mongoTemplate;
          
