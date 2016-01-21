@@ -26,14 +26,15 @@ Spring (I needed to practice more spring, particularly annotation driven)
 ####Slack Command line:
 assuming you created a slash command named ups.  Instructions for that will be provided later.
 
-*/ups addtask "taskId" "taskTitle" "taskDescription"
-*/ups assign taskId userName //Assign task taskId to user 
-*/ups board //Shows you current assignments to all users to you personally
-*/ups configurechannel //Sets channel to receive and distribute tasks
-*/ups help [command] //Provides usage for commands
-*/ups register userName //Registers user receive tasks in current channel
-*/ups showboard //Shows current assignments to all users to the channel
-*/ups unassigned //Shows unassigned tasks for current channel
+
+* /ups addtask "taskId" "taskTitle" "taskDescription"
+* /ups assign taskId userName //Assign task taskId to user 
+* /ups board //Shows you current assignments to all users to you personally
+* /ups configurechannel //Sets channel to receive and distribute tasks
+* /ups help [command] //Provides usage for commands
+* /ups register userName //Registers user receive tasks in current channel
+* /ups showboard //Shows current assignments to all users to the channel
+* /ups unassigned //Shows unassigned tasks for current channel
 
 
 Openshift CheatSheet
