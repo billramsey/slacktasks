@@ -36,6 +36,9 @@ assuming you created a slash command named ups.  Instructions for that will be p
 * /ups showboard //Shows current assignments to all users to the channel
 * /ups unassigned //Shows unassigned tasks for current channel
 
+and hah, I noticed I posted my slack token.  I've since revoked that and will find a way to put
+that in the env variables.
+
 
 Openshift CheatSheet
 ---
