@@ -24,6 +24,7 @@ public class Task {
     this.taskId = taskId;
     this.description = description;
     this.title = title;
+    this.creationDate = new DateTime();
   }
 
   public Task(String taskId, String title, String description, Project project, Assignee assignee) {
@@ -32,6 +33,7 @@ public class Task {
     this.assignee = assignee;
     this.description = description;
     this.title = title;
+    this.creationDate = new DateTime();
   }
 
   public Project getProject() {

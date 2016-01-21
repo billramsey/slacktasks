@@ -54,22 +54,19 @@ public class Unassigned extends Command  {
 
     Project project = databaseService.getProject(channelId);
 
-
-
     List<Task> taskList = databaseService.getUnassignedTasks(project);
 
     if (taskList == null || taskList.size() == 0) {
       return new SlackResponse(messageByLocaleService.getMessage("unassigned.none")); 
     }
-    
-    
+
     SlackResponse sr = new SlackResponse("Unassigned:");
 
     for(Task t : taskList) {
       Attachment attachment = new Attachment();
       attachment.setText(t.getTitle() + "[" + t.getTaskId() + "]");
 
-      Field desc = new Field("desc", t.getDescription());
+      Field desc = new Field("Description:", t.getDescription());
       desc.set_short(false);
       attachment.addField(desc);
       sr.addAttachment(attachment);

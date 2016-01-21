@@ -112,8 +112,6 @@ public class TestAddTask {
       duplicateKeyExceptionCaught = true;
     }
     assertTrue(duplicateKeyExceptionCaught);
-    
-    
   }
   @Test
   public void testAddTaskNonExistentProject() {
