@@ -80,7 +80,7 @@ public class TestHelp {
     SlackResponse response = command.execute(new SlackRequest(), arg);
 
     String responseText = response.getText();
-    //System.out.println("responseText: " + responseText);
+    System.out.println("responseText: " + responseText);
 
     for (Command c : commands) {
       Assert.assertThat(responseText, CoreMatchers.containsString(c.usage()));
