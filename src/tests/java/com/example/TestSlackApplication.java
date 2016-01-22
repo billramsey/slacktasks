@@ -57,8 +57,8 @@ public class TestSlackApplication {
   @Bean
   public SlackService slackService(@Value("${slacktoken}") String token) {
     
-    return new SlackServiceImpl(token);
-    //return new SlackServiceStub();
+    //return new SlackServiceImpl(token);
+    return new SlackServiceStub();
   }
 
 }
