@@ -69,6 +69,9 @@ public class TaskDateTime {
    * 
    */
   //
+  public TaskDateTime() {
+    
+  }
   public TaskDateTime(String timeframe, DateTime now) {
     
     if (timeframe.equals("month")) {
