@@ -76,6 +76,7 @@ public class TestUnassigned {
 
     SlackResponse response = command.execute(slackRequest, arg);
     String responseText = response.getText();
+    System.out.println("result:" + responseText);
     Assert.assertThat(responseText, CoreMatchers.containsString("test-task-title"));
   }
   
