@@ -4,14 +4,30 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.example.TestSlackApplication;
 
 import flowctrl.integration.slack.SlackClientFactory;
 import flowctrl.integration.slack.type.User;
 import flowctrl.integration.slack.webapi.SlackWebApiClient;
 
-public class TestSlackCalls {
 
-  private String token = "xoxp-12080698544-12076686227-17152273637-9380ca8b3c";
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringApplicationConfiguration(TestSlackApplication.class)
+@EnableAutoConfiguration
+@ComponentScan
+public class TestSlackCalls {
+  @Value("${slacktoken}")
+  private String token;
+  
   private SlackWebApiClient webApiClient;
 
   @Before

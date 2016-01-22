@@ -5,3 +5,4 @@ target
 !.settings/.jsdtscope
 .project
 .classpath
+/src/main/resources/application-secret.properties
